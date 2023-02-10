@@ -2,8 +2,6 @@
 
 <template lang="pug">
 .default-layout
-  LayoutSideMenu
-  .page-content
     slot
 </template>
 
