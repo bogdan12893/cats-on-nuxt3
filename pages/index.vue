@@ -40,15 +40,109 @@ watch(
 <template lang="pug">
 .index-page.p-10
   .pagination(class="flex items-center")
-    button(class="border-2 border-blue-400 p-1 rounded-lg" @click="handlePage(false)") ←
-    div(class="p-1 px-4 border-2 border-blue-400 mx-2 rounded-lg") total pages: {{ lastPage }}
-    button(class="border-2 border-blue-400 p-1 rounded-lg" @click="handlePage(true)") →
-  div(v-if="loading" class="min-h-screen")
+    button(class="border-2 border-green-300 p-1 rounded-lg bg-violet-300" @click="handlePage(false)") ←
+    div(class="p-1 px-4 border-2 border-green-300 mx-2 rounded-lg bg-violet-300") total pages: {{ lastPage }}
+    button(class="border-2 border-green-300 p-1 rounded-lg bg-violet-300" @click="handlePage(true)") →
+  .loading-state(v-if="loading" class="min-h-screen")
     template(v-for="i in 10")
-      div(class="p-2 my-2 bg-gray-100 border-2 border-gray-200 h-[44px] rounded-lg")
-  div(v-else)
+      .item
+  .cards(v-else)
     template(v-for="cat in catBreeds")
-      div(class="p-2 my-2 bg-teal-400 border-2 border-teal-900 rounded-lg") Breed: {{ cat.breed }} 🐱, Country: {{ cat.country }} 🚩
+      .parent
+        .card
+          .content-box
+            h1.card-title {{ cat.breed }}
+            ul.card-content
+              li
+                span.detail country:
+                span {{ cat.country ? cat.country : "-" }}
+              li
+                span.detail origin:
+                span {{ cat.origin ? cat.origin : "-" }}
+              li
+                span.detail coat:
+                span {{ cat.coat ? cat.coat : "-" }}
+              li
+                span.detail pattern:
+                span {{ cat.pattern ? cat.pattern : "-" }}
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.index-page {
+  @apply bg-slate-800;
+
+  .cards {
+    @apply grid grid-cols-4 gap-10 my-10;
+  }
+
+  .parent {
+    @apply col-span-1;
+    perspective: 1000px;
+
+    .card {
+      padding-top: 100px;
+      border-radius: 12px;
+      background-image: url('https://images.unsplash.com/photo-1618826411640-d6df44dd3f7a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8Y2F0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60');
+      background-position: 40% 10%;
+      transform-style: preserve-3d;
+      transition: all 0.5s ease-in-out;
+
+      &:hover {
+        transform: rotate3d(0.5, 1, 0, 30deg);
+        background-position: 20% 40%;
+      }
+
+      .content-box {
+        height: 100%;
+        width: 100%;
+        background-color: #000000d0;
+        border-radius: 0 0 12px 12px;
+        padding: 20px;
+        box-shadow: rgba(225, 39, 213, 0.554) 0px 18px 50px -10px;
+        transform-style: preserve-3d;
+        transition: all 0.5s ease-in-out;
+        height: 200px;
+
+        .card-title {
+          color: white;
+          font-size: larger;
+          font-weight: bold;
+          transition: all 0.5s ease-in-out;
+          transform: translate3d(0px, 0px, 20px);
+
+          &:hover {
+            transform: translate3d(0px, 0px, 50px);
+          }
+        }
+
+        .card-content {
+          padding-top: 15px;
+          font-size: smaller;
+          color: white;
+          transition: all 0.5s ease-in-out;
+          transform: translate3d(0px, 0px, 20px);
+
+          li {
+            .detail {
+              font-weight: bold;
+              margin-right: 5px;
+            }
+          }
+
+          &:hover {
+            transform: translate3d(0px, 0px, 50px);
+          }
+        }
+      }
+    }
+  }
+
+  .loading-state {
+    @apply grid grid-cols-4 gap-10 my-10;
+
+    .item {
+      @apply col-span-1 h-[300px] bg-fuchsia-700 rounded-xl opacity-10;
+    }
+  }
+}
+</style>
