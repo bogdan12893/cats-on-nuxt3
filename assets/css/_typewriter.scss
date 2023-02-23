@@ -1,0 +1,44 @@
+.typewriter {
+  --bg-color: rgb(134 239 172);
+  --typewriterSpeed: 2s;
+  --typewriterCharacters: 18;
+
+  h1 {
+    font-size: clamp(1rem, 3vw + 1rem, 4rem);
+    position: relative;
+    font-family: 'VT323', monospace;
+    position: relative;
+    width: max-content;
+    color: #951ca0;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+
+    &::before {
+      background: var(--bg-color);
+      animation: typewriter var(--typewriterSpeed) steps(var(--typewriterCharacters)) 1s forwards;
+    }
+    &::after {
+      width: 0.125em;
+      background: black;
+      animation: typewriter var(--typewriterSpeed) steps(var(--typewriterCharacters)) 1s forwards,
+        blink 750ms steps(var(--typewriterCharacters)) infinite;
+    }
+  }
+
+  @keyframes typewriter {
+    to {
+      left: 100%;
+    }
+  }
+
+  @keyframes blink {
+    to {
+      background: transparent;
+    }
+  }
+}

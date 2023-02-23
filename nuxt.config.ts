@@ -21,6 +21,22 @@ export default defineNuxtConfig({
           content: 'cats-on-nuxt3',
         },
       ],
+      link: [
+        {
+          rel: 'preconnect',
+          href: 'https://fonts.googleapis.com',
+        },
+        {
+          rel: 'preconnect',
+          href: 'https://fonts.gstatic.com',
+          crossorigin: true,
+        },
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Tilt+Neon&family=VT323&display=swap',
+          defer: true,
+        },
+      ],
     },
   },
 

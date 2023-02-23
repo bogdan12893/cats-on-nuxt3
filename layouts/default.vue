@@ -4,7 +4,8 @@
 .default-layout
   nav.nav
     NuxtLink(to="/") home
-    NuxtLink(to="aos") AOS
+    NuxtLink(to="/aos") AOS
+    NuxtLink(to="/neon-btn") Neon Button
 slot
 </template>
 
