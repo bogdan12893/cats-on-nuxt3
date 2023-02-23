@@ -8,14 +8,16 @@ const getCatsBreeds = async () => {
   loading.value = true;
   try {
     const { data } = await useBaseUrl(`breeds?page=${currentPage.value}`);
-    catBreeds.value = data.value.data;
-    lastPage.value = data.value.last_page;
+    catBreeds.value = data?.value?.data;
+    lastPage.value = data?.value?.last_page;
   } catch (e) {
     console.log(e);
   } finally {
     loading.value = false;
   }
 };
+
+await getCatsBreeds();
 
 const handlePage = (direction) => {
   if (direction && currentPage.value < lastPage.value) {
@@ -27,8 +29,6 @@ const handlePage = (direction) => {
   }
 };
 
-await getCatsBreeds();
-
 watch(
   () => currentPage.value,
   async () => {
@@ -39,10 +39,6 @@ watch(
 
 <template lang="pug">
 .index-page.p-10
-  .pagination(class="flex items-center")
-    button(class="border-2 border-green-300 p-1 rounded-lg bg-violet-300" @click="handlePage(false)") ←
-    div(class="p-1 px-4 border-2 border-green-300 mx-2 rounded-lg bg-violet-300") total pages: {{ lastPage }}
-    button(class="border-2 border-green-300 p-1 rounded-lg bg-violet-300" @click="handlePage(true)") →
   .loading-state(v-if="loading" class="min-h-screen")
     template(v-for="i in 10")
       .item
@@ -65,6 +61,12 @@ watch(
               li
                 span.detail pattern:
                 span {{ cat.pattern ? cat.pattern : "-" }}
+            NuxtLink.link(to="#") Read More
+  .pagination(class="flex items-center")
+    button(class="border-2 border-green-300 p-1 rounded-lg bg-violet-300" @click="handlePage(false)") ←
+    div(class="p-1 px-4 border-2 border-green-300 mx-2 rounded-lg bg-violet-300") total pages: {{ lastPage }}
+    button(class="border-2 border-green-300 p-1 rounded-lg bg-violet-300" @click="handlePage(true)") →
+
 </template>
 
 <style lang="scss" scoped>
@@ -86,11 +88,6 @@ watch(
       background-position: 40% 10%;
       transform-style: preserve-3d;
       transition: all 0.5s ease-in-out;
-
-      &:hover {
-        transform: rotate3d(0.5, 1, 0, 30deg);
-        background-position: 20% 40%;
-      }
 
       .content-box {
         height: 100%;
@@ -132,6 +129,26 @@ watch(
           &:hover {
             transform: translate3d(0px, 0px, 50px);
           }
+        }
+
+        .link {
+          @apply text-white font-medium py-2 inline-block underline;
+          transition: all 0.5s ease-in-out;
+          transform: translate3d(0px, 0px, 20px);
+
+          &:hover {
+            transform: translate3d(0px, 0px, 50px);
+          }
+        }
+      }
+
+      &:hover,
+      &:focus-within {
+        transform: rotate3d(0.5, 1, 0, 30deg);
+        background-position: 20% 40%;
+
+        .link {
+          transform: translate3d(0px, 0px, 50px);
         }
       }
     }

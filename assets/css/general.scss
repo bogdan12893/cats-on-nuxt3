@@ -1,0 +1,55 @@
+//animations on scroll
+//fade up
+.before-fade-up-el {
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateY(100%);
+}
+
+.enter-fade-up-el {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+  transition: all 1s ease;
+}
+//fade right
+.before-fade-right-el {
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateX(100%);
+}
+
+.enter-fade-right-el {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateX(0);
+  transition: all 1s ease;
+}
+//fade left
+.before-fade-left-el {
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateX(-100%);
+}
+
+.enter-fade-left-el {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateX(0);
+  transition: all 1s ease;
+}
+
+.delay-200 {
+  transition-delay: 200ms;
+}
+
+.delay-400 {
+  transition-delay: 400ms;
+}
+
+.delay-600 {
+  transition-delay: 600ms;
+}
+
+
+
